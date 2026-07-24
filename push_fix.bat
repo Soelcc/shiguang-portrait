@@ -3,19 +3,10 @@ set "GIT_HOME=C:\Users\17205\.cache\codex-runtimes\codex-primary-runtime\depende
 set "GIT=%GIT_HOME%\cmd\git.exe"
 set "PATH=%GIT_HOME%\mingw64\bin;%GIT_HOME%\mingw64\libexec\git-core;%GIT_HOME%\cmd;%PATH%"
 cd /d "C:\Users\17205\Documents\2"
-
-echo === Push all updates ===
-echo.
 "%GIT%" config user.name "shiguang"
 "%GIT%" config user.email "19331022216@163.com"
 "%GIT%" add -A
-"%GIT%" commit -m "Add favicon + gallery fix + scroll reveal + form fix"
+"%GIT%" commit -m "Fix favicon + gallery + scroll reveal + booking form"
 "%GIT%" push origin main
-
-if %errorlevel% equ 0 (
-    echo === DONE ===
-    echo https://soelcc.github.io/shiguang-portrait/
-) else (
-    echo === FAILED ===
-)
+if %errorlevel% equ 0 (echo === DONE === https://soelcc.github.io/shiguang-portrait/) else (echo === FAILED ===)
 pause
