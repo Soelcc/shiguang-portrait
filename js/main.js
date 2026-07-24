@@ -1,4 +1,4 @@
-﻿/* 时光肖像馆 - 主脚本 v2 */
+/* 时光肖像馆 - 主脚本 v2 */
 // ===== 种子数据 =====
 if(!localStorage.getItem("sg_users")) localStorage.setItem("sg_users",JSON.stringify([
   {id:1,username:"admin",password:"admin888",role:"admin",name:"管理员",phone:"15532061331",email:"19331022216@163.com"},
@@ -314,18 +314,18 @@ function SG_renderStats(){
 
 // ===== Gallery =====
 var SG_galleryItems=[
-  {src:"images/gallery-1.png",title:"晨光微露",cat:"portrait"},
-  {src:"images/gallery-2.png",title:"静谧时光",cat:"portrait"},
-  {src:"images/gallery-3.png",title:"城市剪影",cat:"portrait"},
-  {src:"images/gallery-4.png",title:"爱的光影",cat:"couple"},
-  {src:"images/gallery-5.png",title:"携手同行",cat:"couple"},
-  {src:"images/gallery-6.png",title:"甜蜜时刻",cat:"couple"},
-  {src:"images/gallery-7.png",title:"家的温度",cat:"family"},
-  {src:"images/gallery-8.png",title:"幸福时光",cat:"family"},
-  {src:"images/gallery-9.png",title:"童真年代",cat:"family"},
-  {src:"images/gallery-10.png",title:"灵魂之窗",cat:"artistic",vip:true},
-  {src:"images/gallery-11.png",title:"梦幻光影",cat:"artistic",vip:true},
-  {src:"images/gallery-12.png",title:"时空交错",cat:"artistic",vip:true}
+  {src:"images/gallery-1.svg",title:"晨光微露",cat:"portrait"},
+  {src:"images/gallery-2.svg",title:"静谧时光",cat:"portrait"},
+  {src:"images/gallery-3.svg",title:"城市剪影",cat:"portrait"},
+  {src:"images/gallery-4.svg",title:"爱的光影",cat:"couple"},
+  {src:"images/gallery-5.svg",title:"携手同行",cat:"couple"},
+  {src:"images/gallery-6.svg",title:"甜蜜时刻",cat:"couple"},
+  {src:"images/gallery-7.svg",title:"家的温度",cat:"family"},
+  {src:"images/gallery-8.svg",title:"幸福时光",cat:"family"},
+  {src:"images/gallery-9.svg",title:"童真年代",cat:"family"},
+  {src:"images/gallery-10.svg",title:"灵魂之窗",cat:"artistic",vip:true},
+  {src:"images/gallery-11.svg",title:"梦幻光影",cat:"artistic",vip:true},
+  {src:"images/gallery-12.svg",title:"时空交错",cat:"artistic",vip:true}
 ];
 var SG_currentFilter="all";
 var SG_visibleCount=8;
