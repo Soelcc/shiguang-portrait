@@ -381,6 +381,21 @@ document.addEventListener("DOMContentLoaded",function(){
       if(nm)nm.classList.remove("active");
     });
   });
+  // Scroll reveal animation
+  var revealEls = document.querySelectorAll('.section-header, .service-card, .photographer-card, .work-item, .testimonial-card, .about-content, .booking-container, .vip-teaser, .pricing-card');
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  revealEls.forEach(function(el) {
+    el.classList.add('reveal');
+    revealObserver.observe(el);
+  });
+
   // Booking filter change
   var bf=document.getElementById("bookingFilter");
   if(bf)bf.addEventListener("change",function(){SG_renderAdminBookings()});
