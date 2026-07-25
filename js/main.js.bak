@@ -393,18 +393,18 @@ function SG_renderAiLogs(){
 
 // ===== Gallery =====
 var SG_galleryItems=[
-  {src:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop",fallback:"images/gallery-1.svg",title:"晨光微露",cat:"portrait"},
-  {src:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=800&fit=crop",fallback:"images/gallery-2.svg",title:"静谧时光",cat:"portrait"},
-  {src:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=600&h=800&fit=crop",fallback:"images/gallery-3.svg",title:"城市剪影",cat:"portrait"},
-  {src:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=800&fit=crop",fallback:"images/gallery-4.svg",title:"爱的光影",cat:"couple"},
-  {src:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=800&fit=crop",fallback:"images/gallery-5.svg",title:"携手同行",cat:"couple"},
-  {src:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&h=800&fit=crop",fallback:"images/gallery-6.svg",title:"甜蜜时刻",cat:"couple"},
-  {src:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=800&fit=crop",fallback:"images/gallery-7.svg",title:"家的温度",cat:"family"},
-  {src:"https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=600&h=800&fit=crop",fallback:"images/gallery-8.svg",title:"幸福时光",cat:"family"},
-  {src:"https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&h=800&fit=crop",fallback:"images/gallery-9.svg",title:"童真年代",cat:"family"},
-  {src:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop",fallback:"images/gallery-10.svg",title:"灵魂之窗",cat:"artistic",vip:true},
-  {src:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&h=800&fit=crop",fallback:"images/gallery-11.svg",title:"梦幻光影",cat:"artistic",vip:true},
-  {src:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=800&fit=crop",fallback:"images/gallery-12.svg",title:"时空交错",cat:"artistic",vip:true}
+  {src:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop",title:"晨光微露",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=800&fit=crop",title:"静谧时光",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=600&h=800&fit=crop",title:"城市剪影",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=800&fit=crop",title:"爱的光影",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=800&fit=crop",title:"携手同行",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&h=800&fit=crop",title:"甜蜜时刻",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=800&fit=crop",title:"家的温度",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=600&h=800&fit=crop",title:"幸福时光",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&h=800&fit=crop",title:"童真年代",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop",title:"灵魂之窗",cat:"artistic",vip:true},
+  {src:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&h=800&fit=crop",title:"梦幻光影",cat:"artistic",vip:true},
+  {src:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=800&fit=crop",title:"时空交错",cat:"artistic",vip:true}
 ];
 var SG_currentFilter="all";
 var SG_visibleCount=8;
@@ -418,11 +418,10 @@ function renderGallery(filter,count){
   var grid=document.getElementById("worksGrid");if(!grid)return;
   grid.innerHTML=visible.map(function(item){
     var catName=SG_type(item.cat);
-    var fb=item.fallback||"";
     if(item.vip&&!isVip){
-      return '<div class="work-item locked" onclick="SG_openUnlock()"><img src="'+item.src+'" alt="'+item.title+'" onerror="this.onerror=null;this.src=\''+fb+'\'" class="work-img"><div class="work-overlay"><span class="lock-badge">🔒 VIP</span><h3>'+item.title+'</h3><span>'+catName+'</span></div></div>';
+      return '<div class="work-item locked" onclick="SG_openUnlock()"><div class="work-bg" style="background-image:url('+item.src+')"></div><div class="work-overlay"><span class="lock-badge">🔒 VIP</span><h3>'+item.title+'</h3><span>'+catName+'</span></div></div>';
     }
-    return '<div class="work-item"><img src="'+item.src+'" alt="'+item.title+'" onerror="this.onerror=null;this.src=\''+fb+'\'" class="work-img"><div class="work-overlay"><h3>'+item.title+'</h3><span>'+catName+'</span></div></div>';
+    return '<div class="work-item"><div class="work-bg" style="background-image:url('+item.src+')"></div><div class="work-overlay"><h3>'+item.title+'</h3><span>'+catName+'</span></div></div>';
   }).join("");
   var btn=document.getElementById("loadMore");
   if(btn)btn.style.display=count>=items.length?"none":"inline-block";
@@ -430,6 +429,7 @@ function renderGallery(filter,count){
     b.classList.toggle("active",b.dataset.filter===filter);
   });
 }
+
 // ===== Init =====
 SG_updateNav();
 document.addEventListener("DOMContentLoaded",function(){
