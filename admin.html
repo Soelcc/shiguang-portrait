@@ -231,7 +231,7 @@
     nav.appendChild(btn);
   });
 
-  function switchPanel(id){
+  function switchPanel(id){localStorage.setItem('sg_admin_tab',id);
     document.querySelectorAll('.sb-tab').forEach(function(b){b.classList.remove('active')});
     var ab=document.querySelector('.sb-tab[data-panel='+JSON.stringify(id)+']');if(ab)ab.classList.add('active');
     document.querySelectorAll('.admin-panel').forEach(function(p){p.classList.remove('active')});
@@ -250,7 +250,7 @@
   }
 
   // Init first panel
-  var firstTab = tabs[0].id;switchPanel(firstTab);
+  var savedTab = localStorage.getItem('sg_admin_tab');var firstTab = savedTab && tabs.find(function(t){return t.id===savedTab}) ? savedTab : tabs[0].id;switchPanel(firstTab);
 })();
 </script>
 
