@@ -6,8 +6,8 @@ cd /d "C:\Users\17205\Documents\2"
 "%GIT%" config user.name "shiguang"
 "%GIT%" config user.email "19331022216@163.com"
 "%GIT%" add -A
-"%GIT%" commit -m "Real photos: gallery, photographers, hero, about, parallax"
+"%GIT%" commit -m "Fix encoding + Unsplash real photos"
 echo Pushing...
 "%GIT%" push origin main
-if not errorlevel 1 (echo DONE! https://soelcc.github.io/shiguang-portrait/) else (echo FAILED - retry)
+if not errorlevel 1 (echo DONE!) else (echo FAILED)
 pause
