@@ -393,18 +393,18 @@ function SG_renderAiLogs(){
 
 // ===== Gallery =====
 var SG_galleryItems=[
-  {src:"images/gallery-1.svg",title:"晨光微露",cat:"portrait"},
-  {src:"images/gallery-2.svg",title:"静谧时光",cat:"portrait"},
-  {src:"images/gallery-3.svg",title:"城市剪影",cat:"portrait"},
-  {src:"images/gallery-4.svg",title:"爱的光影",cat:"couple"},
-  {src:"images/gallery-5.svg",title:"携手同行",cat:"couple"},
-  {src:"images/gallery-6.svg",title:"甜蜜时刻",cat:"couple"},
-  {src:"images/gallery-7.svg",title:"家的温度",cat:"family"},
-  {src:"images/gallery-8.svg",title:"幸福时光",cat:"family"},
-  {src:"images/gallery-9.svg",title:"童真年代",cat:"family"},
-  {src:"images/gallery-10.svg",title:"灵魂之窗",cat:"artistic",vip:true},
-  {src:"images/gallery-11.svg",title:"梦幻光影",cat:"artistic",vip:true},
-  {src:"images/gallery-12.svg",title:"时空交错",cat:"artistic",vip:true}
+  {src:"https://picsum.photos/seed/portrait1/1200/1600",title:"晨光微露",cat:"portrait"},
+  {src:"https://picsum.photos/seed/portrait2/1200/1600",title:"静谧时光",cat:"portrait"},
+  {src:"https://picsum.photos/seed/portrait3/1200/1600",title:"城市剪影",cat:"portrait"},
+  {src:"https://picsum.photos/seed/couple1/1200/1600",title:"爱的光影",cat:"couple"},
+  {src:"https://picsum.photos/seed/couple2/1200/1600",title:"携手同行",cat:"couple"},
+  {src:"https://picsum.photos/seed/couple3/1200/1600",title:"甜蜜时刻",cat:"couple"},
+  {src:"https://picsum.photos/seed/family1/1200/1600",title:"家的温度",cat:"family"},
+  {src:"https://picsum.photos/seed/family2/1200/1600",title:"幸福时光",cat:"family"},
+  {src:"https://picsum.photos/seed/family3/1200/1600",title:"童真年代",cat:"family"},
+  {src:"https://picsum.photos/seed/artistic1/1200/1600",title:"灵魂之窗",cat:"artistic",vip:true},
+  {src:"https://picsum.photos/seed/artistic2/1200/1600",title:"梦幻光影",cat:"artistic",vip:true},
+  {src:"https://picsum.photos/seed/artistic3/1200/1600",title:"时空交错",cat:"artistic",vip:true}
 ];
 var SG_currentFilter="all";
 var SG_visibleCount=8;
