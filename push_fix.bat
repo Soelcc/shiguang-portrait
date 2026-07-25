@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 chcp 65001 >nul
 echo ========================================
 echo   Push to GitHub
@@ -19,7 +19,7 @@ echo [2/4] Add all changes...
 "%GIT%" add -A
 
 echo [3/4] Commit...
-"%GIT%" commit -m "New photographer photos + 5 hero images rotation"
+"%GIT%" commit -m "Admin stats: PV/UV tracking, 10 metrics, visitor log"
 
 echo [4/4] Push...
 "%GIT%" push origin main

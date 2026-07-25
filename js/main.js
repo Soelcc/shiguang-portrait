@@ -31,6 +31,18 @@ function SG_isVip(){var u=SG_uid(),v=SG_g("vip");return u&&v?!!v[u]:false}
 function SG_type(t){var m={portrait:"个人写真",couple:"情侣写真",family:"家庭肖像",artistic:"艺术肖像",other:"其他"};return m[t]||t}
 function SG_st(s){var m={pending:"待处理",approved:"已确认",rejected:"已拒绝",completed:"已完成"};return m[s]||s}
 
+
+// ===== PV/UV Tracking =====
+(function(){
+  var sid = sessionStorage.getItem('sg_sid');
+  if(!sid){ sid = 's' + Date.now() + '_' + Math.random().toString(36).substr(2,6); sessionStorage.setItem('sg_sid', sid); }
+  var pv = SG_g('pv') || [];
+  var page = location.pathname.replace(/.*\//,'').replace('.html','') || 'index';
+  pv.push({ page: page, time: new Date().toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}), sid: sid });
+  if(pv.length > 500) pv = pv.slice(-500);
+  SG_s('pv', pv);
+})();
+
 // ===== Nav =====
 function SG_goBack(){window.location.href='index.html'}
 function SG_updateNav(){
@@ -356,15 +368,44 @@ function SG_renderStats(){
   var users=SG_g("users")||[];
   var vip=SG_g("vip")||{};
   var vc=users.filter(function(u){return !!vip[u.id]}).length;
+  var va=SG_g("vipApps")||[];
+  var pv=SG_g("pv")||[];
+  var logs=SG_g("aiLogs")||[];
   var el=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v};
-  el("statTotalBookings",b.length);
-  el("statPendingBookings",b.filter(function(x){return x.status==="pending"}).length);
+  var today=getBJToday();
+  var todayPV=pv.filter(function(x){return x.time.startsWith(today)}).length;
+  var todayBookings=b.filter(function(x){return x.createdAt&&x.createdAt.startsWith(today)}).length;
+  var uniqueSids={};
+  pv.forEach(function(x){uniqueSids[x.sid]=true});
+  var todaySids={};
+  pv.filter(function(x){return x.time.startsWith(today)}).forEach(function(x){todaySids[x.sid]=true});
+  el("statTodayPV",todayPV);
+  el("statTotalPV",pv.length);
+  el("statTodayUV",Object.keys(todaySids).length);
+  el("statTotalUV",Object.keys(uniqueSids).length);
   el("statTotalUsers",users.length);
   el("statTotalVip",vc);
-  var va=SG_g("vipApps")||[];
+  el("statTotalBookings",b.length);
+  el("statPendingBookings",b.filter(function(x){return x.status==="pending"}).length);
+  el("statTodayBookings",todayBookings);
   el("statPendingVipApps",va.filter(function(x){return x.status==="pending"}).length);
+  el("statAiLogs",logs.length);
+  var tbody=document.querySelector("#pvTable tbody");
+  if(tbody){
+    var recent=pv.slice(-50).reverse();
+    tbody.innerHTML=recent.map(function(x){
+      return "<tr><td>"+x.page+"</td><td>"+x.time+"</td><td style='font-size:0.75rem;color:#999'>"+x.sid.substring(0,12)+"</td></tr>";
+    }).join("");
+  }
 }
 
+function getBJToday(){
+  var d=new Date();
+  var bj=new Date(d.toLocaleString("en-US",{timeZone:"Asia/Shanghai"}));
+  return bj.getFullYear()+"/"+
+    String(bj.getMonth()+1).padStart(2,"0")+"/"+
+    String(bj.getDate()).padStart(2,"0");
+}
 // ===== AI Generation Log =====
 function SG_saveAILog(data){
   var logs=SG_g("aiLogs")||[];

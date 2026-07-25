@@ -198,7 +198,27 @@
         </div>
         <div class="admin-panel" id="panel-stats">
             <div class="stats-row">
-                <div class="stat-box"><div class="stat-num" id="statTotalBookings">0</div><div class="stat-lbl">总预约数</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTodayPV">0</div><div class="stat-lbl">📈 今日访问</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTotalPV">0</div><div class="stat-lbl">📊 总访问量</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTodayUV">0</div><div class="stat-lbl">👤 今日访客</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTotalUV">0</div><div class="stat-lbl">🌐 总访客数</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTotalUsers">0</div><div class="stat-lbl">👥 注册用户</div></div>
+            </div>
+            <div class="stats-row">
+                <div class="stat-box"><div class="stat-num" id="statTotalBookings">0</div><div class="stat-lbl">📋 总预约</div></div>
+                <div class="stat-box"><div class="stat-num" id="statPendingBookings">0</div><div class="stat-lbl">⏳ 待处理预约</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTodayBookings">0</div><div class="stat-lbl">📅 今日预约</div></div>
+                <div class="stat-box"><div class="stat-num" id="statTotalVip">0</div><div class="stat-lbl">👑 VIP会员</div></div>
+                <div class="stat-box"><div class="stat-num" id="statPendingVipApps">0</div><div class="stat-lbl">💳 待审VIP</div></div>
+            </div>
+            <h4 style="margin:1.5rem 0 0.8rem;font-family:'Noto Serif SC',serif;color:var(--brown)">📋 最近访问记录</h4>
+            <div class="tbl-wrap">
+                <table class="tbl" id="pvTable">
+                    <thead><tr><th>页面</th><th>访问时间</th><th>会话ID</th></tr></thead>
+                    <tbody><tr><td colspan="3" style="text-align:center;color:#999">暂无数据</td></tr></tbody>
+                </table>
+            </div>
+        </div>
                 <div class="stat-box"><div class="stat-num" id="statPendingBookings">0</div><div class="stat-lbl">待处理</div></div>
                 <div class="stat-box"><div class="stat-num" id="statTotalUsers">0</div><div class="stat-lbl">注册用户</div></div>
                 <div class="stat-box"><div class="stat-num" id="statTotalVip">0</div><div class="stat-lbl">VIP会员</div></div><div class="stat-box"><div class="stat-num" id="statPendingVipApps">0</div><div class="stat-lbl">待审核VIP</div></div>
@@ -207,7 +227,7 @@
     </div>
 </div>
 
-<script src="js/main.js"></script>
+<script src="js/main.js?v=3"></script>
 <script>
 (function(){
   var s = JSON.parse(localStorage.getItem('sg_session')||'null');
