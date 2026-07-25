@@ -1,11 +1,11 @@
 /* 时光肖像馆 - 主脚本 v2 */
 // ===== 种子数据 =====
 if(!localStorage.getItem("sg_users")) localStorage.setItem("sg_users",JSON.stringify([
-  {id:1,username:"admin",password:"admin888",role:"admin",name:"管理员",phone:"15532061331",email:"19331022216@163.com",regTime:"2025-01-01T00:00:00.000Z",regIP:"127.0.0.1",regLoc:"中国 北京"},
+  {id:1,username:"admin",password:"admin888",role:"admin",name:"管理员",phone:"15532061331",email:"19331022216@163.com",regTime:"2025/01/01 00:00:00",regIP:"127.0.0.1",regLoc:"中国 北京"},
   {id:2,username:"user",password:"user888",role:"user",name:"张三",phone:"13800138000",email:""}
 ]));
 if(!localStorage.getItem("sg_bookings")) localStorage.setItem("sg_bookings","[]");
-if(!localStorage.getItem("sg_vip")) localStorage.setItem("sg_vip","{}");
+if(!localStorage.getItem("sg_vip")) localStorage.setItem("sg_vip",JSON.stringify({1:true}));
 if(!localStorage.getItem("sg_vipApps")) localStorage.setItem("sg_vipApps","[]");
 
 // ===== 工具函数 =====
@@ -76,7 +76,7 @@ function SG_sendCode(){
   },1000);
 }
 
-async function SG_doRegister(){
+function SG_doRegister(){
   var u=document.getElementById("regUsername").value.trim();
   var p=document.getElementById("regPassword").value.trim();
   var ph=document.getElementById("regPhone").value.trim();
@@ -89,12 +89,11 @@ async function SG_doRegister(){
   var users=SG_g("users")||[];
   if(users.find(function(x){return x.username===u})){err.textContent="用户名已存在";return false}
   if(users.find(function(x){return x.phone===ph})){err.textContent="该手机号已注册";return false}
-  err.textContent="注册中...";
   var geo={ip:"未知",loc:"未知"};
-  try{var r=await fetch("https://api.ip.sb/geoip");if(r.ok){var d=await r.json();geo={ip:d.ip||"未知",loc:(d.country||"")+" "+(d.city||"")}}}catch(e){}
-  var newU={id:Date.now(),username:u,password:p,role:"user",name:u,phone:ph,email:"",regTime:new Date().toISOString(),regIP:geo.ip,regLoc:geo.loc};
+  var ids=SG_g("users")||[];var newId=ids.length>0?Math.max.apply(null,ids.map(function(x){return x.id}))+1:2;var newU={id:newId,username:u,password:p,role:"user",name:u,phone:ph,email:"",regTime:new Date().toLocaleString("zh-CN",{timeZone:"Asia/Shanghai",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}),regIP:geo.ip,regLoc:geo.loc};
   users.push(newU);SG_s("users",users);
-  SG_s("session",{id:newU.id,username:newU.username,role:"user",name:newU.name});
+  setTimeout(function(){try{fetch("https://api.ip.sb/geoip").then(function(r){return r.json()}).then(function(d){var users2=SG_g("users")||[];var idx2=users2.findIndex(function(x){return x.id===newId});if(idx2>=0){users2[idx2].regIP=d.ip||"未知";users2[idx2].regLoc=((d.country||"")+" "+(d.city||"")).replace(/China/gi,"中国").replace(/Beijing/gi,"北京").replace(/Shanghai/gi,"上海").replace(/Guangdong/gi,"广东").replace(/Zhejiang/gi,"浙江").replace(/Jiangsu/gi,"江苏").replace(/Sichuan/gi,"四川").replace(/Hubei/gi,"湖北").replace(/Fujian/gi,"福建").replace(/Shandong/gi,"山东").replace(/Hong Kong/gi,"香港");SG_s("users",users2)}}).catch(function(){})}catch(e){}},800);
+  SG_s("session",{id:newId,username:u,role:"user",name:u});
   SG_closeAuth();SG_updateNav();
   return false;
 }
@@ -271,7 +270,7 @@ function SG_renderUsers(){
   var tbody=document.querySelector("#userTable tbody");if(!tbody)return;
   tbody.innerHTML=users.map(function(u){
     var isVip=!!vip[u.id];
-    var rt=u.regTime?u.regTime.slice(0,16).replace("T"," "):"-";
+    var rt=u.regTime||"-";
     return "<tr><td>"+u.id+"</td><td>"+u.username+"</td><td>"+u.name+"</td><td>"+(u.phone||"-")+"</td><td>"+(u.role==="admin"?"🔧管理员":"👤用户")+"</td><td>"+(isVip?"✅VIP":"❌普通")+"</td><td>"+rt+"</td><td>"+(u.regLoc||"-")+"</td><td>"+(u.regIP||"-")+"</td><td>"+(u.role!=="admin"?'<button class="btn-sm btn-reject" onclick="SG_deleteUser('+u.id+')">删除</button>':"-")+"</td></tr>";
   }).join("");
 }
