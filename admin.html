@@ -187,6 +187,15 @@
                 </table>
             </div>
         </div>
+        <div class="admin-panel" id="panel-aiLogs">
+            <div class="tbl-wrap">
+                <table class="tbl" id="aiLogsTable">
+                    <thead><tr><th>用户</th><th>风格</th><th>提示词</th><th>生成图片</th><th>生成时间</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="admin-empty" id="aiLogsEmpty" style="display:none"><p>🤖 暂无AI生成记录</p></div>
+        </div>
         <div class="admin-panel" id="panel-stats">
             <div class="stats-row">
                 <div class="stat-box"><div class="stat-num" id="statTotalBookings">0</div><div class="stat-lbl">总预约数</div></div>
@@ -219,7 +228,7 @@
     {id:'allBookings',icon:'📋',label:'预约管理'},
     {id:'userManagement',icon:'👥',label:'用户管理'},
     {id:'vipApps',icon:'💳',label:'VIP审核'},{id:'vipManagement',icon:'👑',label:'VIP管理'},
-    {id:'stats',icon:'📊',label:'网站统计'}
+    {id:'stats',icon:'📊',label:'网站统计'},{id:'aiLogs',icon:'🤖',label:'AI生成记录'}
   ];
   var tabs = isAdmin ? adminTabs : userTabs;
   var nav = document.getElementById('sidebarNav');
@@ -246,7 +255,7 @@
     if(id==='userManagement') SG_renderUsers();
     if(id==='vipApps') SG_renderVipApps();
     if(id==='vipManagement') SG_renderVipMgmt();
-    if(id==='stats') SG_renderStats();
+    if(id==='stats') SG_renderStats();if(id==='aiLogs') SG_renderAiLogs();
   }
 
   // Init first panel

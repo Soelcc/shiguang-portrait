@@ -7,13 +7,10 @@ echo Pushing...
 "%GIT%" config user.name "shiguang"
 "%GIT%" config user.email "19331022216@163.com"
 "%GIT%" add -A
-"%GIT%" commit -m "Fix: refresh button + migration + all previous fixes"
+"%GIT%" commit -m "Add AI image studio + IPv4 geo + tab persistence"
 for /l %%i in (1,1,5) do (
     "%GIT%" push origin main
-    if not errorlevel 1 (
-        echo SUCCESS: https://soelcc.github.io/shiguang-portrait/
-        pause & exit /b 0
-    )
+    if not errorlevel 1 (echo SUCCESS: https://soelcc.github.io/shiguang-portrait/ & pause & exit /b 0)
     echo Retry %%i/5...
     timeout /t 3 /nobreak >nul
 )

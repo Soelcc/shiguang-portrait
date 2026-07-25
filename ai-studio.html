@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 影像工作室 - 时光肖像馆</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232c1810%22/><text x=%2250%22 y=%2268%22 font-size=%2255%22 text-anchor=%22middle%22 fill=%22%23c5a572%22 font-family=%22serif%22>%E6%97%B6</text></svg>">
+    <style>
+        :root {
+            --bg: #faf7f2;
+            --gold: #c5a572;
+            --gold-dark: #8b6914;
+            --brown: #5a3a2a;
+            --brown-dark: #2c1810;
+            --white: #fff;
+            --text: #2c2c2c;
+            --gray: #999;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        .topbar {
+            background: var(--brown-dark);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topbar a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .topbar h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            font-size: 1.1rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .title h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+        .title p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Main layout */
+        .studio-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .studio-layout { grid-template-columns: 1fr; }
+            .container { padding: 1rem; }
+        }
+
+        /* Upload zone */
+        .upload-zone {
+            border: 2px dashed #d4b896;
+            border-radius: 16px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--white);
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .upload-zone:hover, .upload-zone.drag-over {
+            border-color: var(--gold-dark);
+            background: rgba(197,165,114,0.05);
+        }
+        .upload-zone.has-image {
+            padding: 0;
+            border-style: solid;
+            overflow: hidden;
+        }
+        .upload-zone img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            display: block;
+            border-radius: 14px;
+        }
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+        }
+        .upload-text {
+            font-size: 0.95rem;
+            color: var(--brown);
+            margin-bottom: 0.3rem;
+        }
+        .upload-hint {
+            font-size: 0.78rem;
+            color: var(--gray);
+        }
+        .upload-reset {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        #fileInput { display: none; }
+
+        /* Style cards */
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+        }
+        @media (max-width: 500px) {
+            .styles-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .style-card {
+            background: var(--white);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .style-card:hover {
+            border-color: #d4b896;
+            transform: translateY(-2px);
+        }
+        .style-card.active {
+            border-color: var(--gold-dark);
+            background: rgba(197,165,114,0.08);
+        }
+        .style-icon {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+        .style-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--brown);
+            margin-bottom: 0.2rem;
+        }
+        .style-desc {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        /* Prompt input */
+        .prompt-section {
+            margin: 1.5rem 0;
+        }
+        .prompt-section label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--brown);
+            margin-bottom: 0.5rem;
+        }
+        .prompt-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .prompt-row input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .prompt-row input:focus {
+            border-color: var(--gold-dark);
+        }
+
+        /* Generate button */
+        .btn-generate {
+            width: 100%;
+            padding: 0.9rem;
+            background: linear-gradient(135deg, var(--brown-dark), var(--gold-dark));
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            letter-spacing: 0.05em;
+        }
+        .btn-generate:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(139,105,20,0.3);
+        }
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Result */
+        .result-section {
+            grid-column: 1 / -1;
+            margin-top: 1rem;
+        }
+        .result-section h3 {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--brown);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .result-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .result-card img {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .result-card .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid #eee;
+            border-top-color: var(--gold-dark);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 2rem 0;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-download {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: var(--gold-dark);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .error-msg {
+            color: #d44;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+        }
+        .section-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--brown);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <h3>✨ AI 影像工作室</h3>
+    <a href="index.html">← 返回首页</a>
+</div>
+
+<div class="container">
+    <div class="title">
+        <h1>AI 影像工作室</h1>
+        <p>上传照片，选择风格，AI 为你生成专属影像</p>
+    </div>
+
+    <div class="studio-layout">
+        <!-- Left: Upload -->
+        <div>
+            <div class="section-label">📷 上传照片</div>
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">点击或拖拽上传照片</div>
+                <div class="upload-hint">支持 JPG、PNG，最大 10MB</div>
+                <button class="upload-reset" id="resetBtn" style="display:none" onclick="event.stopPropagation();resetImage()">✕</button>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" onchange="handleFile(this.files[0])">
+
+            <div class="prompt-section">
+                <label>💬 描述你想要的效果（选填）</label>
+                <div class="prompt-row">
+                    <input type="text" id="customPrompt" placeholder="例如：穿西装打领带，纯白背景...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Styles -->
+        <div class="right-panel">
+            <div class="section-label">🎨 选择风格</div>
+            <div class="styles-grid" id="stylesGrid"></div>
+
+            <button class="btn-generate" id="generateBtn" onclick="generateImage()">
+                🚀 开始生成
+            </button>
+        </div>
+
+        <!-- Result -->
+        <div class="result-section" id="resultSection" style="display:none">
+            <h3>生成结果</h3>
+            <div class="result-card" id="resultCard">
+                <div class="loading-spinner" id="loadingSpinner" style="display:none"></div>
+                <div id="resultContent"></div>
+                <div class="error-msg" id="errorMsg" style="display:none"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===== Style presets =====
+var styles = [
+    { id: 'professional', icon: '💼', name: '职业形象照', desc: '西装革履，专业自信', prompt: 'professional business portrait photo, suit and tie, studio lighting, white background, clean sharp, high quality headshot' },
+    { id: 'ancient', icon: '🏮', name: '古风汉服', desc: '汉服飘逸，古典韵味', prompt: 'traditional Chinese hanfu clothing, ancient Chinese style portrait, elegant flowing robes, classical beauty, ink painting aesthetic, soft natural lighting' },
+    { id: 'scifi', icon: '🚀', name: '科幻未来', desc: '赛博朋克，未来科技', prompt: 'cyberpunk sci-fi portrait, neon lights, futuristic tech, holographic elements, dramatic lighting, digital art style' },
+    { id: 'cartoon', icon: '🎨', name: '卡通动漫', desc: '二次元风格，可爱', prompt: 'anime style portrait, studio ghibli inspired, soft colors, cute illustration, manga art style, clean lines' },
+    { id: 'oil', icon: '🖼️', name: '古典油画', desc: '文艺复兴，艺术质感', prompt: 'classical oil painting portrait, renaissance style, dramatic chiaroscuro lighting, rich colors, fine art, masterpiece quality' },
+    { id: 'watercolor', icon: '🎨', name: '水彩手绘', desc: '清新淡雅，文艺气息', prompt: 'watercolor painting portrait, soft pastel colors, artistic sketch style, delicate brushstrokes, dreamy atmosphere' },
+    { id: 'emoji', icon: '😜', name: '趣味表情包', desc: '搞怪有趣，社交必备', prompt: 'funny exaggerated cartoon caricature, meme style, humorous expression, bold outlines, vibrant colors, sticker design' },
+    { id: 'vintage', icon: '📷', name: '复古胶片', desc: '胶片质感，怀旧色调', prompt: 'vintage film photography portrait, kodak portra 400, retro aesthetic, warm grain, 80s style, nostalgic mood' },
+    { id: 'korean', icon: '💫', name: '韩式写真', desc: '清新自然，韩范十足', prompt: 'Korean style portrait photography, soft feminine aesthetic, natural makeup, pastel tones, airy atmosphere, k-drama look' }
+];
+
+var selectedStyle = styles[0].id;
+var uploadedImage = null;
+
+// Render style cards
+var grid = document.getElementById('stylesGrid');
+styles.forEach(function(s) {
+    var card = document.createElement('div');
+    card.className = 'style-card' + (s.id === selectedStyle ? ' active' : '');
+    card.innerHTML = '<div class="style-icon">' + s.icon + '</div><div class="style-name">' + s.name + '</div><div class="style-desc">' + s.desc + '</div>';
+    card.onclick = function() {
+        document.querySelectorAll('.style-card').forEach(function(c) { c.classList.remove('active'); });
+        card.classList.add('active');
+        selectedStyle = s.id;
+    };
+    grid.appendChild(card);
+});
+
+// Upload handling
+var uploadZone = document.getElementById('uploadZone');
+uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', function() { this.classList.remove('drag-over'); });
+uploadZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+function handleFile(file) {
+    if (!file || !file.type.match(/image\/(jpeg|png|webp)/)) { alert('请上传 JPG 或 PNG 图片'); return; }
+    if (file.size > 10 * 1024 * 1024) { alert('图片最大 10MB'); return; }
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        uploadedImage = e.target.result;
+        uploadZone.classList.add('has-image');
+        uploadZone.innerHTML = '<img src="' + uploadedImage + '" alt="Preview"><button class="upload-reset" onclick="event.stopPropagation();resetImage()">✕</button>';
+        document.getElementById('resetBtn').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+function resetImage() {
+    uploadedImage = null;
+    uploadZone.classList.remove('has-image');
+    uploadZone.innerHTML = '<div class="upload-icon">📁</div><div class="upload-text">点击或拖拽上传照片</div><div class="upload-hint">支持 JPG、PNG，最大 10MB</div><button class="upload-reset" id="resetBtn" style="display:none" onclick="event.stopPropagation();resetImage()">✕</button>';
+}
+
+// Generate
+async function generateImage() {
+    var style = styles.find(function(s) { return s.id === selectedStyle; });
+    var custom = document.getElementById('customPrompt').value.trim();
+    var prompt = style.prompt;
+    if (custom) prompt = custom + ', ' + prompt;
+
+    var resultSection = document.getElementById('resultSection');
+    var spinner = document.getElementById('loadingSpinner');
+    var resultContent = document.getElementById('resultContent');
+    var errorMsg = document.getElementById('errorMsg');
+    var btn = document.getElementById('generateBtn');
+
+    resultSection.style.display = 'block';
+    spinner.style.display = 'block';
+    resultContent.innerHTML = '';
+    errorMsg.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = '⏳ 生成中...';
+
+    try {
+        var encodedPrompt = encodeURIComponent(prompt);
+        var imgUrl = 'https://image.pollinations.ai/prompt/' + encodedPrompt + '?width=512&height=512&nologo=true&seed=' + Math.floor(Math.random()*99999);
+
+        // Load image to verify
+        var img = new Image();
+        img.onload = function() {
+            spinner.style.display = 'none';
+            resultContent.innerHTML = '<img src="' + imgUrl + '" alt="AI Generated"><br><a href="' + imgUrl + '" download="ai-portrait.jpg" class="btn-download" target="_blank">📥 下载图片</a>';
+            btn.disabled = false;
+            btn.textContent = '🚀 重新生成';
+        };
+        img.onerror = function() {
+            spinner.style.display = 'none';
+            errorMsg.style.display = 'block';
+            errorMsg.textContent = '生成失败，请稍后重试';
+            btn.disabled = false;
+            btn.textContent = '🚀 开始生成';
+        };
+        img.src = imgUrl;
+    } catch(e) {
+        spinner.style.display = 'none';
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = '网络错误：' + e.message;
+        btn.disabled = false;
+        btn.textContent = '🚀 开始生成';
+    }
+}
+</script>
+
+
+<script src="js/main.js"></script>
+<script>
+// Override generate success to save log
+var origOnload = null;
+var _genBtn = document.getElementById('generateBtn');
+var _origClick = _genBtn.onclick;
+_genBtn.onclick = async function() {
+    var style = styles.find(function(s) { return s.id === selectedStyle; });
+    var custom = document.getElementById('customPrompt').value.trim();
+    var prompt = style.prompt;
+    if (custom) prompt = custom + ', ' + prompt;
+
+    var resultSection = document.getElementById('resultSection');
+    var spinner = document.getElementById('loadingSpinner');
+    var resultContent = document.getElementById('resultContent');
+    var errorMsg = document.getElementById('errorMsg');
+
+    resultSection.style.display = 'block';
+    spinner.style.display = 'block';
+    resultContent.innerHTML = '';
+    errorMsg.style.display = 'none';
+    this.disabled = true;
+    this.textContent = '⏳ 生成中...';
+
+    try {
+        var encodedPrompt = encodeURIComponent(prompt);
+        var imgUrl = 'https://image.pollinations.ai/prompt/' + encodedPrompt + '?width=512&height=512&nologo=true&seed=' + Math.floor(Math.random()*99999);
+
+        var img = new Image();
+        img.onload = function() {
+            spinner.style.display = 'none';
+            resultContent.innerHTML = '<img src="' + imgUrl + '" alt="AI Generated"><br><a href="' + imgUrl + '" download="ai-portrait.jpg" class="btn-download" target="_blank">📥 下载图片</a>';
+            _genBtn.disabled = false;
+            _genBtn.textContent = '🚀 重新生成';
+            
+            // Save log
+            var s = JSON.parse(localStorage.getItem('sg_session')||'null');
+            if (typeof SG_saveAILog === 'function') {
+                SG_saveAILog({
+                    userId: s ? s.id : null,
+                    username: s ? s.name : '游客',
+                    style: style.name,
+                    prompt: prompt,
+                    imageUrl: imgUrl
+                });
+            }
+        };
+        img.onerror = function() {
+            spinner.style.display = 'none';
+            errorMsg.style.display = 'block';
+            errorMsg.textContent = '生成失败，请稍后重试';
+            _genBtn.disabled = false;
+            _genBtn.textContent = '🚀 开始生成';
+        };
+        img.src = imgUrl;
+    } catch(e) {
+        spinner.style.display = 'none';
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = '网络错误：' + e.message;
+        _genBtn.disabled = false;
+        _genBtn.textContent = '🚀 开始生成';
+    }
+};
+</script>
+
+</body>
+</html>

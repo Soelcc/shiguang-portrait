@@ -7,6 +7,7 @@ if(!localStorage.getItem("sg_users")) localStorage.setItem("sg_users",JSON.strin
 if(!localStorage.getItem("sg_bookings")) localStorage.setItem("sg_bookings","[]");
 if(!localStorage.getItem("sg_vip")) localStorage.setItem("sg_vip",JSON.stringify({1:true}));
 if(!localStorage.getItem("sg_vipApps")) localStorage.setItem("sg_vipApps","[]");
+if(!localStorage.getItem("sg_aiLogs")) localStorage.setItem("sg_aiLogs","[]");
 // Migrate old data
 (function(){
   var v=localStorage.getItem("sg_db_ver");
@@ -362,6 +363,32 @@ function SG_renderStats(){
   el("statTotalVip",vc);
   var va=SG_g("vipApps")||[];
   el("statPendingVipApps",va.filter(function(x){return x.status==="pending"}).length);
+}
+
+// ===== AI Generation Log =====
+function SG_saveAILog(data){
+  var logs=SG_g("aiLogs")||[];
+  logs.push({
+    id:Date.now(),
+    userId:data.userId||null,
+    username:data.username||"游客",
+    style:data.style||"未知",
+    prompt:data.prompt||"",
+    imageUrl:data.imageUrl||"",
+    createdAt:new Date().toLocaleString("zh-CN",{timeZone:"Asia/Shanghai",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false})
+  });
+  SG_s("aiLogs",logs);
+}
+function SG_renderAiLogs(){
+  var logs=SG_g("aiLogs")||[];
+  var tbody=document.querySelector("#aiLogsTable tbody");
+  var emp=document.getElementById("aiLogsEmpty");
+  if(!tbody)return;
+  if(logs.length===0){tbody.innerHTML="";if(emp)emp.style.display="block";return}
+  if(emp)emp.style.display="none";
+  tbody.innerHTML=logs.reverse().map(function(l){
+    return "<tr><td>"+l.username+"</td><td>"+l.style+"</td><td style='max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap' title='"+l.prompt+"'>"+(l.prompt||"-")+"</td><td>"+(l.imageUrl?'<a href="'+l.imageUrl+'" target="_blank" style="color:#c5a572">查看图片</a>':"-")+"</td><td>"+l.createdAt+"</td></tr>";
+  }).join("");
 }
 
 // ===== Gallery =====
