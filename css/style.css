@@ -257,17 +257,17 @@ body {
 }
 
 .hero-img-1 {
-    background-image: linear-gradient(135deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
+    background-image: url(https://picsum.photos/seed/hero1/1200/800); background-size: cover; background-position: center;
     animation-delay: 0s;
 }
 
 .hero-img-2 {
-    background-image: linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
+    background-image: url(https://picsum.photos/seed/hero2/1200/800); background-size: cover; background-position: center;
     animation-delay: 4s;
 }
 
 .hero-img-3 {
-    background-image: linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
+    background-image: url(https://picsum.photos/seed/hero3/1200/800); background-size: cover; background-position: center;
     animation-delay: 8s;
 }
 
@@ -569,11 +569,7 @@ section {
 }
 
 /* --- Parallax Quote --- */
-.parallax-quote {
-    position: relative;
-    padding: 8rem 2rem;
-    text-align: center;
-    background: url('../images/parallax-bg.svg'), linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
+.parallax-quote { background: url(https://picsum.photos/seed/parallax/1600/900) center/cover fixed;
     background-attachment: fixed;
     background-size: cover;
 }
@@ -756,7 +752,7 @@ section {
     position: absolute;
     inset: 0;
     width: 80%;
-    background: url('../images/about-main.svg'), linear-gradient(135deg, #3a2015, #6b4c3b, #8b6914); background-size: cover; background-position: center;
+    background: url(https://picsum.photos/seed/about1/600/800) center/cover no-repeat;
     border-radius: 2px;
 }
 
@@ -766,7 +762,7 @@ section {
     bottom: -2rem;
     width: 60%;
     height: 60%;
-    background: url('../images/about-secondary.svg'), linear-gradient(225deg, #2a2a3e, #5a4a3a, #8b7355); background-size: cover; background-position: center;
+    background: url(https://picsum.photos/seed/about2/400/500) center/cover no-repeat;
     border-radius: 2px;
     border: 4px solid var(--color-cream);
 }
