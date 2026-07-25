@@ -434,18 +434,18 @@ function SG_renderAiLogs(){
 
 // ===== Gallery =====
 var SG_galleryItems=[
-  {src:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=800&fit=crop",fallback:"images/gallery-1.svg",title:"晨光微露",cat:"portrait"},
-  {src:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=800&fit=crop",fallback:"images/gallery-2.svg",title:"静谧时光",cat:"portrait"},
-  {src:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=400&h=800&fit=crop",fallback:"images/gallery-3.svg",title:"城市剪影",cat:"portrait"},
-  {src:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=800&fit=crop",fallback:"images/gallery-4.svg",title:"爱的光影",cat:"couple"},
-  {src:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=800&fit=crop",fallback:"images/gallery-5.svg",title:"携手同行",cat:"couple"},
-  {src:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=800&fit=crop",fallback:"images/gallery-6.svg",title:"甜蜜时刻",cat:"couple"},
-  {src:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=800&fit=crop",fallback:"images/gallery-7.svg",title:"家的温度",cat:"family"},
-  {src:"https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=400&h=800&fit=crop",fallback:"images/gallery-8.svg",title:"幸福时光",cat:"family"},
-  {src:"https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=400&h=800&fit=crop",fallback:"images/gallery-9.svg",title:"童真年代",cat:"family"},
-  {src:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=800&fit=crop",fallback:"images/gallery-10.svg",title:"灵魂之窗",cat:"artistic",vip:true},
-  {src:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=800&fit=crop",fallback:"images/gallery-11.svg",title:"梦幻光影",cat:"artistic",vip:true},
-  {src:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=800&fit=crop",fallback:"images/gallery-12.svg",title:"时空交错",cat:"artistic",vip:true}
+  {src:"https://images.unsplash.com/photo-1605134513245-7e5e88b4e9ce?w=400&h=800&fit=crop",fallback:"images/gallery-1.svg",title:"晨光微露",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1517841905240-4729884df551?w=400&h=800&fit=crop",fallback:"images/gallery-2.svg",title:"静谧时光",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=800&fit=crop",fallback:"images/gallery-3.svg",title:"城市剪影",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1517841905240-4729884df551?w=400&h=800&fit=crop",fallback:"images/gallery-4.svg",title:"爱的光影",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=800&fit=crop",fallback:"images/gallery-5.svg",title:"携手同行",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=800&fit=crop",fallback:"images/gallery-6.svg",title:"甜蜜时刻",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=800&fit=crop",fallback:"images/gallery-7.svg",title:"家的温度",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1605134513245-7e5e88b4e9ce?w=400&h=800&fit=crop",fallback:"images/gallery-8.svg",title:"幸福时光",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1514315384767-ee66afb8e28e?w=400&h=800&fit=crop",fallback:"images/gallery-9.svg",title:"童真年代",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&h=800&fit=crop",fallback:"images/gallery-10.svg",title:"灵魂之窗",cat:"artistic",vip:true},
+  {src:"https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=800&fit=crop",fallback:"images/gallery-11.svg",title:"梦幻光影",cat:"artistic",vip:true},
+  {src:"https://images.unsplash.com/photo-1517841905240-4729884df551?w=400&h=800&fit=crop",fallback:"images/gallery-12.svg",title:"时空交错",cat:"artistic",vip:true}
 ];
 var SG_currentFilter="all";
 var SG_visibleCount=8;
