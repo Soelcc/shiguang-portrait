@@ -310,7 +310,18 @@
     </div>
 
     <div class="studio-layout">
-        <!-- Left: Upload -->
+        <!-- Left: Styles -->
+        <div class="right-panel">
+            <div class="section-label">🎨 选择风格</div>
+            <div class="styles-grid" id="stylesGrid"></div>
+
+            <button class="btn-generate" id="generateBtn" onclick="generateImage()">
+                🚀 开始生成
+            </button>
+        </div>
+
+        <!-- Result -->
+        <!-- Right: Upload -->
         <div>
             <div class="section-label">📷 上传照片</div>
             <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
@@ -329,17 +340,6 @@
             </div>
         </div>
 
-        <!-- Right: Styles -->
-        <div class="right-panel">
-            <div class="section-label">🎨 选择风格</div>
-            <div class="styles-grid" id="stylesGrid"></div>
-
-            <button class="btn-generate" id="generateBtn" onclick="generateImage()">
-                🚀 开始生成
-            </button>
-        </div>
-
-        <!-- Result -->
         <div class="result-section" id="resultSection" style="display:none">
             <h3>生成结果</h3>
             <div class="result-card" id="resultCard">
