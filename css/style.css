@@ -254,7 +254,7 @@ body {
     background-size: cover;
     background-position: center;
     opacity: 0;
-    animation: heroFade 25s infinite;
+    animation: heroFade 20s infinite;
 }
 
 .hero-img-1 {
@@ -264,27 +264,27 @@ body {
 
 .hero-img-2 {
     background-image: url(https://images.unsplash.com/photo-1517841905240-4729884df551?w=800&h=800&fit=crop), linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
-    animation-delay: 5s;
+    animation-delay: 4s;
 }
 
 .hero-img-3 {
     background-image: url(https://images.unsplash.com/photo-1552058544-f2b08422138a?w=800&h=800&fit=crop), linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
-    animation-delay: 10s;
+    animation-delay: 8s;
 }
 .hero-img-4 {
     background-image: url(https://images.unsplash.com/photo-1514315384767-ee66afb8e28e?w=800&h=800&fit=crop), linear-gradient(45deg, #1a1a2e 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
-    animation-delay: 15s;
+    animation-delay: 12s;
 }
 
 .hero-img-5 {
     background-image: url(https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&h=800&fit=crop), linear-gradient(180deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
-    animation-delay: 20s;
+    animation-delay: 16s;
 }
 
 @keyframes heroFade {
-    0%, 14% { opacity: 1; }
-    20%, 94% { opacity: 0; }
-    100% { opacity: 1; }}
+    0%, 18% { opacity: 1; }
+    25%, 100% { opacity: 0; }
+}
 
 
 .hero-content {
