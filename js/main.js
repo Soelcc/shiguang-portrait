@@ -393,18 +393,18 @@ function SG_renderAiLogs(){
 
 // ===== Gallery =====
 var SG_galleryItems=[
-  {src:"https://picsum.photos/seed/portrait1/1200/1600",title:"晨光微露",cat:"portrait"},
-  {src:"https://picsum.photos/seed/portrait2/1200/1600",title:"静谧时光",cat:"portrait"},
-  {src:"https://picsum.photos/seed/portrait3/1200/1600",title:"城市剪影",cat:"portrait"},
-  {src:"https://picsum.photos/seed/couple1/1200/1600",title:"爱的光影",cat:"couple"},
-  {src:"https://picsum.photos/seed/couple2/1200/1600",title:"携手同行",cat:"couple"},
-  {src:"https://picsum.photos/seed/couple3/1200/1600",title:"甜蜜时刻",cat:"couple"},
-  {src:"https://picsum.photos/seed/family1/1200/1600",title:"家的温度",cat:"family"},
-  {src:"https://picsum.photos/seed/family2/1200/1600",title:"幸福时光",cat:"family"},
-  {src:"https://picsum.photos/seed/family3/1200/1600",title:"童真年代",cat:"family"},
-  {src:"https://picsum.photos/seed/artistic1/1200/1600",title:"灵魂之窗",cat:"artistic",vip:true},
-  {src:"https://picsum.photos/seed/artistic2/1200/1600",title:"梦幻光影",cat:"artistic",vip:true},
-  {src:"https://picsum.photos/seed/artistic3/1200/1600",title:"时空交错",cat:"artistic",vip:true}
+  {src:"https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop",title:"晨光微露",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=800&fit=crop",title:"静谧时光",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=600&h=800&fit=crop",title:"城市剪影",cat:"portrait"},
+  {src:"https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=800&fit=crop",title:"爱的光影",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&h=800&fit=crop",title:"携手同行",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=600&h=800&fit=crop",title:"甜蜜时刻",cat:"couple"},
+  {src:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&h=800&fit=crop",title:"家的温度",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=600&h=800&fit=crop",title:"幸福时光",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1476703993599-0035a21b17a9?w=600&h=800&fit=crop",title:"童真年代",cat:"family"},
+  {src:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop",title:"灵魂之窗",cat:"artistic",vip:true},
+  {src:"https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&h=800&fit=crop",title:"梦幻光影",cat:"artistic",vip:true},
+  {src:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=800&fit=crop",title:"时空交错",cat:"artistic",vip:true}
 ];
 var SG_currentFilter="all";
 var SG_visibleCount=8;
