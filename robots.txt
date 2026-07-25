@@ -1,0 +1,17 @@
+﻿User-agent: *
+Disallow: /js/
+Disallow: /css/
+Disallow: /images/
+
+# AI crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
