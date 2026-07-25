@@ -106,25 +106,19 @@ function SG_doRegister(){
   var ids=SG_g("users")||[];var newId=ids.length>0?Math.max.apply(null,ids.map(function(x){return x.id}))+1:2;var newU={id:newId,username:u,password:p,role:"user",name:u,phone:ph,email:"",regTime:new Date().toLocaleString("zh-CN",{timeZone:"Asia/Shanghai",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}),regIP:geo.ip,regLoc:geo.loc};
   users.push(newU);SG_s("users",users);
   setTimeout(function(){
-  var geoAPIs=[
-    "https://api.ip.sb/geoip",
-    "https://ipapi.co/json/",
-    "https://api.ipify.org?format=json"
-  ];
-  function tryGeo(i){
-    if(i>=geoAPIs.length) return;
-    fetch(geoAPIs[i]).then(function(r){return r.json()}).then(function(d){
-      var users2=SG_g("users")||[];
-      var idx2=users2.findIndex(function(x){return x.id===newId});
-      if(idx2<0) return;
-      if(d.ip){
-        users2[idx2].regIP=d.ip;
-        users2[idx2].regLoc=((d.country||d.country_name||"")+" "+(d.city||d.region||"")).trim().replace(/China/gi,"中国").replace(/Beijing/gi,"北京").replace(/Shanghai/gi,"上海").replace(/Guangdong/gi,"广东").replace(/Zhejiang/gi,"浙江").replace(/Jiangsu/gi,"江苏").replace(/Sichuan/gi,"四川").replace(/Hubei/gi,"湖北").replace(/Fujian/gi,"福建").replace(/Shandong/gi,"山东").replace(/Hong Kong/gi,"香港")||"未知";
-        SG_s("users",users2);
-      }
-    }).catch(function(){tryGeo(i+1)});
-  }
-  tryGeo(0);
+  var users2=SG_g("users")||[];
+  var idx2=users2.findIndex(function(x){return x.id===newId});
+  if(idx2<0) return;
+  fetch("https://api-ipv4.ip.sb/ip").then(function(r){return r.text()}).then(function(ipText){
+    var ipv4=ipText.trim();
+    if(ipv4) users2[idx2].regIP=ipv4;
+    return fetch("https://api.ip.sb/geoip/"+ipv4);
+  }).then(function(r){return r.json()}).then(function(d){
+    if(d.country||d.city){
+      users2[idx2].regLoc=((d.country||"")+" "+(d.city||"")).trim().replace(/China/gi,"中国").replace(/Beijing/gi,"北京").replace(/Shanghai/gi,"上海").replace(/Guangdong/gi,"广东").replace(/Zhejiang/gi,"浙江").replace(/Jiangsu/gi,"江苏").replace(/Sichuan/gi,"四川").replace(/Hubei/gi,"湖北").replace(/Fujian/gi,"福建").replace(/Shandong/gi,"山东").replace(/Hong Kong/gi,"香港");
+    }
+    SG_s("users",users2);
+  }).catch(function(){});
 },1000);
   SG_s("session",{id:newId,username:u,role:"user",name:u});
   SG_closeAuth();SG_updateNav();
