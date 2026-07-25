@@ -1,7 +1,7 @@
 /* 时光肖像馆 - 主脚本 v2 */
 // ===== 种子数据 =====
 if(!localStorage.getItem("sg_users")) localStorage.setItem("sg_users",JSON.stringify([
-  {id:1,username:"admin",password:"admin888",role:"admin",name:"管理员",phone:"15532061331",email:"19331022216@163.com"},
+  {id:1,username:"admin",password:"admin888",role:"admin",name:"管理员",phone:"15532061331",email:"19331022216@163.com",regTime:"2025-01-01T00:00:00.000Z",regIP:"127.0.0.1",regLoc:"中国 北京"},
   {id:2,username:"user",password:"user888",role:"user",name:"张三",phone:"13800138000",email:""}
 ]));
 if(!localStorage.getItem("sg_bookings")) localStorage.setItem("sg_bookings","[]");
@@ -58,37 +58,46 @@ function SG_doLogin(){
   SG_closeAuth();SG_updateNav();
   return false;
 }
-var SG_verifyCode = null;
+var SG_verifyCode=null;
 function SG_sendCode(){
-  var phone = document.getElementById("regPhone").value.trim();
-  if(!phone || phone.length < 11){alert("请先输入正确的手机号");return}
-  SG_verifyCode = String(Math.floor(1000 + Math.random() * 9000));
-  alert("验证码: " + SG_verifyCode + " (模拟短信，实际会发送到 " + phone + ")");
-  var btn = document.getElementById("sendCodeBtn");
-  btn.disabled = true;
-  var sec = 60;
-  var timer = setInterval(function(){
-    if(sec <= 0){btn.disabled = false; btn.textContent = "发送验证码"; clearInterval(timer); return}
-    btn.textContent = sec + "s后重发"; sec--;
-  }, 1000);
+  var ph=document.getElementById("regPhone").value.trim();
+  var err=document.getElementById("regError");
+  if(!ph||ph.length<11){err.textContent="请输入正确的手机号";return}
+  var users=SG_g("users")||[];
+  if(users.find(function(x){return x.phone===ph})){err.textContent="该手机号已注册";return}
+  SG_verifyCode=String(Math.floor(1000+Math.random()*9000));
+  var btn=document.getElementById("sendCodeBtn");
+  alert("验证码: "+SG_verifyCode+"\n(模拟短信发送至 "+ph+")");
+  btn.disabled=true;var sec=60;
+  var timer=setInterval(function(){
+    sec--;
+    if(sec<=0){clearInterval(timer);btn.disabled=false;btn.textContent="获取验证码"}
+    else{btn.textContent=sec+"s后重发"}
+  },1000);
 }
 
-function SG_doRegister(){
+async function SG_doRegister(){
   var u=document.getElementById("regUsername").value.trim();
   var p=document.getElementById("regPassword").value.trim();
   var ph=document.getElementById("regPhone").value.trim();
   var code=document.getElementById("regCode").value.trim();
-  if(!u||!p||!ph){document.getElementById("regError").textContent="请填写完整信息";return false}
-  if(!SG_verifyCode||code!==SG_verifyCode){document.getElementById("regError").textContent="验证码错误";return false}
+  var err=document.getElementById("regError");
+  if(!u||!p||!ph||!code){err.textContent="请填写完整信息";return false}
+  if(u.length<2){err.textContent="用户名至少2个字符";return false}
+  if(p.length<8){err.textContent="密码不能少于8个字符";return false}
+  if(!SG_verifyCode||code!==SG_verifyCode){err.textContent="验证码错误";return false}
   var users=SG_g("users")||[];
-  if(users.find(function(x){return x.username===u})){document.getElementById("regError").textContent="用户名已存在";return false}
-  var newU={id:Date.now(),username:u,password:p,role:"user",name:u,phone:ph,email:""};
+  if(users.find(function(x){return x.username===u})){err.textContent="用户名已存在";return false}
+  if(users.find(function(x){return x.phone===ph})){err.textContent="该手机号已注册";return false}
+  err.textContent="注册中...";
+  var geo={ip:"未知",loc:"未知"};
+  try{var r=await fetch("https://api.ip.sb/geoip");if(r.ok){var d=await r.json();geo={ip:d.ip||"未知",loc:(d.country||"")+" "+(d.city||"")}}}catch(e){}
+  var newU={id:Date.now(),username:u,password:p,role:"user",name:u,phone:ph,email:"",regTime:new Date().toISOString(),regIP:geo.ip,regLoc:geo.loc};
   users.push(newU);SG_s("users",users);
   SG_s("session",{id:newU.id,username:newU.username,role:"user",name:newU.name});
   SG_closeAuth();SG_updateNav();
   return false;
 }
-
 // ===== VIP Unlock Modal =====
 var SG_unlockPlan="monthly";
 var SG_unlockPay="wechat";
@@ -262,7 +271,8 @@ function SG_renderUsers(){
   var tbody=document.querySelector("#userTable tbody");if(!tbody)return;
   tbody.innerHTML=users.map(function(u){
     var isVip=!!vip[u.id];
-    return "<tr><td>"+u.id+"</td><td>"+u.username+"</td><td>"+u.name+"</td><td>"+(u.phone||"-")+"</td><td>"+(u.role==="admin"?"🔧管理员":"👤用户")+"</td><td>"+(isVip?"✅VIP":"❌普通")+"</td><td>"+(u.role!=="admin"?'<button class="btn-sm btn-reject" onclick="SG_deleteUser('+u.id+')">删除</button>':"-")+"</td></tr>";
+    var rt=u.regTime?u.regTime.slice(0,16).replace("T"," "):"-";
+    return "<tr><td>"+u.id+"</td><td>"+u.username+"</td><td>"+u.name+"</td><td>"+(u.phone||"-")+"</td><td>"+(u.role==="admin"?"🔧管理员":"👤用户")+"</td><td>"+(isVip?"✅VIP":"❌普通")+"</td><td>"+rt+"</td><td>"+(u.regLoc||"-")+"</td><td>"+(u.regIP||"-")+"</td><td>"+(u.role!=="admin"?'<button class="btn-sm btn-reject" onclick="SG_deleteUser('+u.id+')">删除</button>':"-")+"</td></tr>";
   }).join("");
 }
 function SG_deleteUser(id){

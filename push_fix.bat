@@ -7,7 +7,7 @@ echo === Push ===
 "%GIT%" config user.name "shiguang"
 "%GIT%" config user.email "19331022216@163.com"
 "%GIT%" add -A
-"%GIT%" commit -m "Registration: add SMS code, remove name field"
+"%GIT%" commit -m "Registration: SMS code + security rules + IP/location tracking"
 "%GIT%" push origin main
-if %errorlevel% equ 0 (echo DONE: https://soelcc.github.io/shiguang-portrait/) else (echo FAILED)
+if %errorlevel% equ 0 (echo DONE: https://soelcc.github.io/shiguang-portrait/) else (echo FAILED - check network)
 pause
