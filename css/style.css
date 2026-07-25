@@ -2,12 +2,12 @@
 
 .hero-img-4 {
     background-image: url(https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&h=800&fit=crop), linear-gradient(45deg, #1a1a2e 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
-    animation-delay: 12s;
+    animation-delay: 15s;
 }
 
 .hero-img-5 {
     background-image: url(https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=800&h=800&fit=crop), linear-gradient(180deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
-    animation-delay: 16s;
+    animation-delay: 20s;
 }===========================
    时光肖像馆 - 主样式表
    SHIGUANG PORTRAIT STUDIO
@@ -263,7 +263,7 @@ body {
     background-size: cover;
     background-position: center;
     opacity: 0;
-    animation: heroFade 20s infinite;
+    animation: heroFade 25s infinite;
 }
 
 .hero-img-1 {
@@ -273,17 +273,19 @@ body {
 
 .hero-img-2 {
     background-image: url(https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&h=800&fit=crop), linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
-    animation-delay: 4s;
+    animation-delay: 5s;
 }
 
 .hero-img-3 {
     background-image: url(https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&h=800&fit=crop), linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
-    animation-delay: 8s;
+    animation-delay: 10s;
 }
 
 @keyframes heroFade {
-    0%, 25% { opacity: 1; }
-    33%, 100% { opacity: 0; }
+    0%, 14% { opacity: 1; }
+    20%, 94% { opacity: 0; }
+    100% { opacity: 1; }
+}
 }
 
 .hero-content {
