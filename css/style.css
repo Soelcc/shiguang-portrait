@@ -258,26 +258,26 @@ body {
 }
 
 .hero-img-1 {
-    background-image: url(images/hero/hero-1.jpg), linear-gradient(135deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
+    background-image: url(../images/hero/hero-1.jpg), linear-gradient(135deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
     animation-delay: 0s;
 }
 
 .hero-img-2 {
-    background-image: url(images/hero/hero-2.jpg), linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
+    background-image: url(../images/hero/hero-2.jpg), linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
     animation-delay: 4s;
 }
 
 .hero-img-3 {
-    background-image: url(images/hero/hero-3.jpg), linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
+    background-image: url(../images/hero/hero-3.jpg), linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
     animation-delay: 8s;
 }
 .hero-img-4 {
-    background-image: url(images/hero/hero-4.jpg), linear-gradient(45deg, #1a1a2e 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
+    background-image: url(../images/hero/hero-4.jpg), linear-gradient(45deg, #1a1a2e 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
     animation-delay: 12s;
 }
 
 .hero-img-5 {
-    background-image: url(images/hero/hero-5.jpg), linear-gradient(180deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
+    background-image: url(../images/hero/hero-5.jpg), linear-gradient(180deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
     animation-delay: 16s;
 }
 
@@ -586,7 +586,7 @@ section {
 }
 
 /* --- Parallax Quote --- */
-.url(images/hero/hero-bg.jpg), linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
+.url(../images/hero/hero-bg.jpg), linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
     background-attachment: fixed;
     background-size: cover;
 }
