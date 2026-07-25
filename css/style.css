@@ -257,17 +257,17 @@ body {
 }
 
 .hero-img-1 {
-    background-image: url(https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200&h=800&fit=crop), linear-gradient(135deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
+    background-image: url(https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&h=800&fit=crop), linear-gradient(135deg, #2c1810 0%, #5a3a2a 30%, #8b6914 60%, #d4b896 100%);
     animation-delay: 0s;
 }
 
 .hero-img-2 {
-    background-image: url(https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1200&h=800&fit=crop), linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
+    background-image: url(https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&h=800&fit=crop), linear-gradient(225deg, #1a1a2e 0%, #3d3d5c 30%, #6b4c3b 60%, #8b7355 100%);
     animation-delay: 4s;
 }
 
 .hero-img-3 {
-    background-image: url(https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=1200&h=800&fit=crop), linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
+    background-image: url(https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&h=800&fit=crop), linear-gradient(315deg, #1b2838 0%, #2a475e 30%, #4a6a6a 60%, #a0927b 100%);
     animation-delay: 8s;
 }
 
@@ -579,7 +579,7 @@ section {
     position: relative;
     padding: 8rem 2rem;
     text-align: center;
-    background: url(https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=1920&h=1080&fit=crop), linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
+    background: url(https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=1000&h=1080&fit=crop), linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
     background-attachment: fixed;
     background-size: cover;
 }
@@ -1301,7 +1301,6 @@ section {
     }
 }
 
-
 /* ============================================
    VIP Premium Section
    ============================================ */
@@ -1779,7 +1778,6 @@ section {
         font-size: 2.2rem;
     }
 }
-
 
 /* ============================================
    Auth Modal (Login / Register)
