@@ -58,15 +58,31 @@ function SG_doLogin(){
   SG_closeAuth();SG_updateNav();
   return false;
 }
+var SG_verifyCode = null;
+function SG_sendCode(){
+  var phone = document.getElementById("regPhone").value.trim();
+  if(!phone || phone.length < 11){alert("请先输入正确的手机号");return}
+  SG_verifyCode = String(Math.floor(1000 + Math.random() * 9000));
+  alert("验证码: " + SG_verifyCode + " (模拟短信，实际会发送到 " + phone + ")");
+  var btn = document.getElementById("sendCodeBtn");
+  btn.disabled = true;
+  var sec = 60;
+  var timer = setInterval(function(){
+    if(sec <= 0){btn.disabled = false; btn.textContent = "发送验证码"; clearInterval(timer); return}
+    btn.textContent = sec + "s后重发"; sec--;
+  }, 1000);
+}
+
 function SG_doRegister(){
   var u=document.getElementById("regUsername").value.trim();
   var p=document.getElementById("regPassword").value.trim();
-  var n=document.getElementById("regName").value.trim();
   var ph=document.getElementById("regPhone").value.trim();
-  if(!u||!p||!n){document.getElementById("regError").textContent="请填写完整信息";return false}
+  var code=document.getElementById("regCode").value.trim();
+  if(!u||!p||!ph){document.getElementById("regError").textContent="请填写完整信息";return false}
+  if(!SG_verifyCode||code!==SG_verifyCode){document.getElementById("regError").textContent="验证码错误";return false}
   var users=SG_g("users")||[];
   if(users.find(function(x){return x.username===u})){document.getElementById("regError").textContent="用户名已存在";return false}
-  var newU={id:Date.now(),username:u,password:p,role:"user",name:n,phone:ph,email:""};
+  var newU={id:Date.now(),username:u,password:p,role:"user",name:u,phone:ph,email:""};
   users.push(newU);SG_s("users",users);
   SG_s("session",{id:newU.id,username:newU.username,role:"user",name:newU.name});
   SG_closeAuth();SG_updateNav();
