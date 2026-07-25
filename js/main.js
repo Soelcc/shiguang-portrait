@@ -7,6 +7,19 @@ if(!localStorage.getItem("sg_users")) localStorage.setItem("sg_users",JSON.strin
 if(!localStorage.getItem("sg_bookings")) localStorage.setItem("sg_bookings","[]");
 if(!localStorage.getItem("sg_vip")) localStorage.setItem("sg_vip",JSON.stringify({1:true}));
 if(!localStorage.getItem("sg_vipApps")) localStorage.setItem("sg_vipApps","[]");
+// Migrate old data
+(function(){
+  var v=localStorage.getItem("sg_db_ver");
+  if(v!=="2"){
+    localStorage.removeItem("sg_users");
+    localStorage.removeItem("sg_bookings");
+    localStorage.removeItem("sg_vip");
+    localStorage.removeItem("sg_vipApps");
+    localStorage.removeItem("sg_session");
+    localStorage.setItem("sg_db_ver","2");
+    location.reload();
+  }
+})();
 
 // ===== 工具函数 =====
 function SG_g(k){return JSON.parse(localStorage.getItem("sg_"+k)||"null")}
