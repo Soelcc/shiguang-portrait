@@ -1,6 +1,7 @@
-﻿/* =================
+/* 鏃跺厜鑲栧儚棣?漏2025 Soelc - 19331022216@163.com */
+/* =================
 ===========================
-   时光肖像馆 - 主样式表
+   鏃跺厜鑲栧儚棣?- 涓绘牱寮忚〃
    SHIGUANG PORTRAIT STUDIO
    ============================================ */
 
@@ -586,8 +587,8 @@ section {
 }
 
 /* --- Parallax Quote --- */
-.url(../images/hero/hero-bg.jpg), linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
-    background-attachment: fixed;
+.parallax-quote {
+    background: linear-gradient(135deg, var(--color-brown-dark), var(--color-brown));
     background-size: cover;
 }
 
@@ -689,7 +690,7 @@ section {
 }
 
 .service-card ul li::before {
-    content: '•';
+    content: '鈥?;
     color: var(--color-gold);
     margin-right: 0.5rem;
 }
@@ -1474,7 +1475,7 @@ section {
 }
 
 .pricing-features li::before {
-    content: '✓ ';
+    content: '鉁?';
     color: var(--color-gold-dark);
     font-weight: 700;
 }

@@ -1,4 +1,5 @@
-﻿/* 时光肖像馆 - 主脚本 v2 */
+/* 时光肖像馆 ©2025 Soelc - 19331022216@163.com */
+/* 时光肖像馆 - 主脚本 v2 */
 // ===== 种子数据 =====
 if(!localStorage.getItem("sg_users")) localStorage.setItem("sg_users",JSON.stringify([
   {id:1,username:"admin",password:"admin888",role:"admin",name:"管理员",phone:"15532061331",email:"19331022216@163.com",regTime:"2025/01/01 00:00:00",regIP:"127.0.0.1",regLoc:"中国 北京"},

@@ -1,4 +1,5 @@
-﻿User-agent: *
+# 时光肖像馆 ©2025 Soelc - 19331022216@163.com
+User-agent: *
 Disallow: /js/
 Disallow: /css/
 Disallow: /images/

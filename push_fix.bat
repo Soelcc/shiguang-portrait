@@ -1,4 +1,5 @@
-﻿@echo off
+@rem 时光肖像馆 ©2025 Soelc - 19331022216@163.com
+@echo off
 chcp 65001 >nul
 echo ========================================
 echo   Push to GitHub

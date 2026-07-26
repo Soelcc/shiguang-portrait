@@ -1,3 +1,4 @@
+@rem 时光肖像馆 ©2025 Soelc - 19331022216@163.com
 @echo off
 chcp 65001 >nul
 echo ========================================
@@ -19,7 +20,7 @@ echo [2/4] Add all changes...
 "%GIT%" add -A
 
 echo [3/4] Commit...
-"%GIT%" commit -m "Cleanup: delete unused SVGs/READMEs, fix save.bat, add .gitignore"
+"%GIT%" commit -m "Add Soelc annotations, fix CSS broken rule, remove duplicate IDs, cleanup"
 
 echo [4/4] Push...
 "%GIT%" push origin main
