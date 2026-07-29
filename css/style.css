@@ -1115,13 +1115,36 @@ section {
     box-sizing: border-box;
 }
 
-/* 关键：空值时把 Chrome native 的 yyyy/mm/dd 提示文字透明化，避免和中文占位符重叠 */
+/* 关键：空值时把 Chrome native 的 yyyy/mm/dd 提示文字 + 字段背景高亮 + 字段分隔符一并透明化，避免和中文占位符重叠 */
 .date-wrap input[type="date"]::-webkit-datetime-edit {
     color: transparent;
 }
 
-/* 有值时才让真实日期可见（聚焦不显示，因为聚焦时 native 字段会和中文占位符重叠） */
+/* 聚焦时字段背景高亮（蓝底）也透明化 */
+.date-wrap input[type="date"]::-webkit-datetime-edit-month-field,
+.date-wrap input[type="date"]::-webkit-datetime-edit-day-field,
+.date-wrap input[type="date"]::-webkit-datetime-edit-year-field,
+.date-wrap input[type="date"]::-webkit-datetime-edit-month-field:focus,
+.date-wrap input[type="date"]::-webkit-datetime-edit-day-field:focus,
+.date-wrap input[type="date"]::-webkit-datetime-edit-year-field:focus {
+    background: transparent;
+    color: transparent;
+}
+
+/* 字段之间的固定文本（如「年」「月」「日」「/」）也透明化 */
+.date-wrap input[type="date"]::-webkit-datetime-edit-text {
+    color: transparent;
+}
+
+/* 有值时才让真实日期可见 */
 .date-wrap input[type="date"].has-value::-webkit-datetime-edit {
+    color: var(--color-text);
+}
+.date-wrap input[type="date"].has-value::-webkit-datetime-edit-month-field,
+.date-wrap input[type="date"].has-value::-webkit-datetime-edit-day-field,
+.date-wrap input[type="date"].has-value::-webkit-datetime-edit-year-field,
+.date-wrap input[type="date"].has-value::-webkit-datetime-edit-text {
+    background: transparent;
     color: var(--color-text);
 }
 
