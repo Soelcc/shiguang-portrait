@@ -285,15 +285,14 @@ function SG_submitBooking() {
   const phone  = document.getElementById("bookingPhone").value.trim();
   const type   = document.getElementById("bookingType").value;
   const date   = document.getElementById("bookingDate").value;
-  const time   = document.getElementById("bookingTime").value;
   const note   = document.getElementById("bookingNote").value.trim();
 
-  if (!name || !phone || !date || !time) { alert("请填写完整的预约信息"); return false; }
+  if (!name || !phone || !date) { alert("请填写完整的预约信息"); return false; }
 
   const bookings = SG_g("bookings") || [];
   bookings.push({
     id: Date.now(), userId: session.id, username: session.username,
-    name: name, phone: phone, type: type, date: date, time: time, note: note,
+    name: name, phone: phone, type: type, date: date, time: "", note: note,
     status: "pending", createTime: new Date().toLocaleString("zh-CN")
   });
   SG_s("bookings", bookings);
@@ -703,6 +702,29 @@ function renderGallery(filter, count) {
 }
 
 /* ==============================
+   13.5 客户评价轮播
+   ============================== */
+function initTestimonials() {
+  const slider = document.getElementById("testimonialsSlider");
+  if (!slider) return;
+  const cards = slider.querySelectorAll(".testimonial-card");
+  const dots = document.querySelectorAll("#testimonialsDots .dot");
+  if (cards.length <= 1) return;
+  let idx = 0;
+  function show(i) {
+    cards.forEach(function(c) { c.classList.remove("active"); });
+    dots.forEach(function(d) { d.classList.remove("active"); });
+    cards[i].classList.add("active");
+    if (dots[i]) dots[i].classList.add("active");
+    idx = i;
+  }
+  dots.forEach(function(d) {
+    d.addEventListener("click", function() { show(parseInt(this.dataset.i, 10)); });
+  });
+  setInterval(function() { show((idx + 1) % cards.length); }, 5000);
+}
+
+/* ==============================
    14. 页面初始化
    ============================== */
 SG_updateNav();
@@ -755,7 +777,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // 滚动渐显动画
   const revealElements = document.querySelectorAll(
-    ".section-header, .service-card, .photographer-card, .work-item, .testimonial-card, .about-content, .booking-container, .vip-teaser, .pricing-card"
+    ".section-header, .service-card, .photographer-card, .work-item, .about-content, .booking-container, .vip-teaser, .pricing-card"
   );
   const revealObserver = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
@@ -774,4 +796,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // 管理后台预约筛选
   const bookingFilter = document.getElementById("bookingFilter");
   if (bookingFilter) bookingFilter.addEventListener("change", function() { SG_renderAdminBookings(); });
+
+  // 客户评价轮播
+  initTestimonials();
 });
