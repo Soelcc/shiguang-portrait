@@ -799,4 +799,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // 客户评价轮播
   initTestimonials();
+
+  // 拍摄日期的中文占位符（覆盖 Chrome 原生 yyyy/mm/dd 提示）
+  const dateInput = document.getElementById("bookingDate");
+  const datePh = document.getElementById("datePlaceholder");
+  if (dateInput && datePh) {
+    const syncDatePh = () => {
+      const hasValue = !!dateInput.value;
+      datePh.classList.toggle("is-hidden", hasValue);
+    };
+    dateInput.addEventListener("input", syncDatePh);
+    dateInput.addEventListener("change", syncDatePh);
+    setTimeout(syncDatePh, 50);
+  }
 });
