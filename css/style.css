@@ -1120,9 +1120,8 @@ section {
     color: transparent;
 }
 
-/* 有值或聚焦时让真实日期可见 */
-.date-wrap input[type="date"].has-value::-webkit-datetime-edit,
-.date-wrap input[type="date"]:focus::-webkit-datetime-edit {
+/* 有值时才让真实日期可见（聚焦不显示，因为聚焦时 native 字段会和中文占位符重叠） */
+.date-wrap input[type="date"].has-value::-webkit-datetime-edit {
     color: var(--color-text);
 }
 
