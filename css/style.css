@@ -1099,17 +1099,39 @@ section {
     font-family: var(--font-sans);
     pointer-events: none;
     transition: opacity 0.2s ease;
-    z-index: 1;
+    z-index: 3;
 }
 
 .date-placeholder.is-hidden {
     opacity: 0;
 }
 
+/* input 始终铺满 wrapper */
 .date-wrap input[type="date"] {
     position: relative;
     z-index: 2;
     background: transparent;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 关键：空值时把 Chrome native 的 yyyy/mm/dd 提示文字透明化，避免和中文占位符重叠 */
+.date-wrap input[type="date"]::-webkit-datetime-edit {
+    color: transparent;
+}
+
+/* 有值或聚焦时让真实日期可见 */
+.date-wrap input[type="date"].has-value::-webkit-datetime-edit,
+.date-wrap input[type="date"]:focus::-webkit-datetime-edit {
+    color: var(--color-text);
+}
+
+/* 兼容 Firefox */
+.date-wrap input[type="date"]::-moz-placeholder {
+    color: transparent;
+}
+.date-wrap input[type="date"].has-value::-moz-placeholder {
+    color: var(--color-text);
 }
 
 /* --- Footer --- */

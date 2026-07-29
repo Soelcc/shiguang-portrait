@@ -807,6 +807,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const syncDatePh = () => {
       const hasValue = !!dateInput.value;
       datePh.classList.toggle("is-hidden", hasValue);
+      dateInput.classList.toggle("has-value", hasValue);
     };
     dateInput.addEventListener("input", syncDatePh);
     dateInput.addEventListener("change", syncDatePh);
